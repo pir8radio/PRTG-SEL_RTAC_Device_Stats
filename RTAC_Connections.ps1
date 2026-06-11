@@ -85,8 +85,8 @@ if ($status -ne 0) {
 }
 
 # Read entries from the last 30 and 7 days and calculate uptime % if status not Disabled
-$uptimePercent30 = -1
-$uptimePercent7 = -1
+$uptimePercent30 = 100
+$uptimePercent7 = 100
 
 if ((Test-Path $logFile) -and ($status -ne 0)) {
     $lines = Get-Content $logFile
