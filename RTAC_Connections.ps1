@@ -77,18 +77,18 @@ foreach ($conn in $response) {
     if ($null -eq $sent)      { $sent = -1 }
     if ($null -eq $received)  { $received = -1 }
 
-# Log status to history file only if state not Disabled
+# Log status to history file only if status not Disabled
 $logFile = Join-Path $historyDir "$name.txt"
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 if ($status -ne 0) {
     "$timestamp,$status" | Out-File -FilePath $logFile -Append -Encoding UTF8
 }
 
-# Read entries from the last 30 and 7 days and calculate uptime %
+# Read entries from the last 30 and 7 days and calculate uptime % if status not Disabled
 $uptimePercent30 = -1
 $uptimePercent7 = -1
 
-if (Test-Path $logFile) {
+if ((Test-Path $logFile) -and ($status -ne 0)) {
     $lines = Get-Content $logFile
 
     # 30-day calculation
